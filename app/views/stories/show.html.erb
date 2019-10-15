@@ -13,7 +13,7 @@
         <li class="nav-item">
           <%= link_to "Create Story", create_path, :class => "nav-link" %>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <%= link_to "View Stories", stories_path, :class => "nav-link" %>
         </li>
       </ul>
@@ -23,13 +23,8 @@
 
 <main role="main" class="d-flex flex-shrink-0">
   <div class="container text-center">
-    <h1 class="mt-5 text-light">Stories Index</h1>
-      <% @stories.each do |story| %>
-        <div class="container border border-primary bg-light text-left mt-2">
-            <h3><%= link_to story.title, story %></h3>
-            <h4>By <%= story.author %></h4>
-            <p class="lead"><%= story.text[0..100] + (story.text.length > 100 ? '...': '') %></p>
-        </div>
-      <% end %>
+    <h1 class="mt-5 text-light"><%= @story.title %></h1>
+    <h2 class="text-light">By <%= @story.author %></h2>
+    <p class="lead text-light"><%= @story.text %></p>
   </div>
 </main>

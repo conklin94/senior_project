@@ -13,7 +13,7 @@
         <li class="nav-item">
           <%= link_to "Create Story", create_path, :class => "nav-link" %>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <%= link_to "View Stories", stories_path, :class => "nav-link" %>
         </li>
       </ul>
@@ -23,13 +23,12 @@
 
 <main role="main" class="d-flex flex-shrink-0">
   <div class="container text-center">
-    <h1 class="mt-5 text-light">Stories Index</h1>
-      <% @stories.each do |story| %>
-        <div class="container border border-primary bg-light text-left mt-2">
-            <h3><%= link_to story.title, story %></h3>
-            <h4>By <%= story.author %></h4>
-            <p class="lead"><%= story.text[0..100] + (story.text.length > 100 ? '...': '') %></p>
-        </div>
-      <% end %>
+    <h1 class="mt-5 text-light">New Story</h1>
+    <%= simple_form_for @story do |f| %>
+    <%= f.input :title, label_html: {class: "text-light"} %>
+    <%= f.input :author, label_html: {class: "text-light"} %>
+    <%= f.input :text, input_html: {rows: "8"}, label_html: {class: "text-light"} %>
+    <%= f.button :submit, 'Create new story', class: "btn-lg btn-light" %>
+    <% end %>
   </div>
 </main>
