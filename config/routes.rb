@@ -3,4 +3,6 @@ Rails.application.routes.draw do
   root 'stories#welcome', as: 'home'
 
   get 'create' => 'stories#create_story'
+
+  resources :stories
 end
