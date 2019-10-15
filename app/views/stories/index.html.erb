@@ -7,13 +7,13 @@
 
     <div class="navbar-collapse collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
+        <li class="nav-item">
           <%= link_to "Home", home_path, :class => "nav-link" %>
         </li>
         <li class="nav-item">
           <%= link_to "Create Story", create_path, :class => "nav-link" %>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <%= link_to "View Stories", stories_path, :class => "nav-link" %>
         </li>
       </ul>
@@ -23,13 +23,6 @@
 
 <main role="main" class="d-flex flex-shrink-0">
   <div class="container text-center">
-    <h1 class="mt-5 text-light">Welcome to Story Builder</h1>
-    <p class="lead text-light">
-      Where the stories are made just for you.
-    </p>
-    <p class="lead">
-      <%= link_to "Create Story", create_path, :class => "btn btn-lg btn-light" %>
-    </p>
-    <img class="d-block w-100" src="images/magic-book.png" alt="Magic Book">
+    <h1 class="mt-5 text-light">Stories Index</h1>
   </div>
 </main>
