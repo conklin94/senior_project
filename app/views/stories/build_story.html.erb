@@ -1,0 +1,27 @@
+<% content_for :home_class, "nav_item" %>
+<% content_for :create_class, "nav_item active" %>
+<% content_for :view_class, "nav_item" %>
+<% content_for :page_title, "Build your story" %>
+<div class="container text-center">
+  <h4 class="text-light">Fill in the following fields, or click
+    <button type="button" class="btn btn-light btn-lg">here</button>
+    to randomly generate values</h4>
+  <form>
+    <div class="form-group">
+      <label class="text-light" for="protagonistName">Protagonist Name</label>
+      <input type="text" class="form-control" id="protagonistName" placeholder="Name">
+    </div>
+    <div class="form-group">
+      <label class="text-light" for="gender">Gender</label>
+      <select class="form-control" id="gender">
+        <option>Male</option>
+        <option>Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="text-light" for="age">Age</label>
+      <input type="number" min="0" max="123" class="form-control" id="age" placeholder="Age">
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Build</button>
+  </form>
+</div>

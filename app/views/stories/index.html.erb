@@ -1,35 +1,11 @@
-<header>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <%= link_to "Story Builder", home_path, :class => "navbar-brand" %>
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="navbar-collapse collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <%= link_to "Home", home_path, :class => "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Create Story", create_path, :class => "nav-link" %>
-        </li>
-        <li class="nav-item active">
-          <%= link_to "View Stories", stories_path, :class => "nav-link" %>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
-
-<main role="main" class="d-flex flex-shrink-0">
-  <div class="container text-center">
-    <h1 class="mt-5 text-light">Stories Index</h1>
-      <% @stories.each do |story| %>
-        <div class="container border border-primary bg-light text-left mt-2">
-            <h3><%= link_to story.title, story %></h3>
-            <h4>By <%= story.author %></h4>
-            <p class="lead"><%= story.text[0..100] + (story.text.length > 100 ? '...': '') %></p>
-        </div>
-      <% end %>
+<% content_for :home_class, "nav_item" %>
+<% content_for :create_class, "nav_item" %>
+<% content_for :view_class, "nav_item active" %>
+<% content_for :page_title, "Index" %>
+<% @stories.each do |story| %>
+  <div class="container bg-light text-left mt-2">
+      <h3><%= link_to story.title, story %></h3>
+      <h4>By <%= story.author %></h4>
+      <p class="lead"><%= story.text[0..100] + (story.text.length > 100 ? '...': '') %></p>
   </div>
-</main>
+<% end %>

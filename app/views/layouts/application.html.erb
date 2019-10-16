@@ -10,6 +10,34 @@
   </head>
 
   <body class="d-flex flex-column h-100  bg-secondary">
-    <%= yield %>
+    <header>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <%= link_to "Story Builder", home_path, :class => "navbar-brand" %>
+        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="<%= yield :home_class %>">
+              <%= link_to "Home", home_path, :class => "nav-link" %>
+            </li>
+            <li class="<%= yield :create_class %>">
+              <%= link_to "Build Story", build_path, :class => "nav-link" %>
+            </li>
+            <li class="<%= yield :view_class %>">
+              <%= link_to "View Stories", stories_path, :class => "nav-link" %>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <main role="main">
+      <div class="container-fluid bg-dark mt-5 pb-3 mb-1 text-center">
+        <h1 class="mt-5 text-light"><%= yield :page_title %></h1>
+      </div>
+      <%= yield %>
+    </main>
   </body>
 </html>
