@@ -1,0 +1,8 @@
+<div class="container text-center">
+  <%= simple_form_for @story do |f| %>
+  <%= f.input :title, label_html: {class: "text-light"} %>
+  <%= f.input :author, label_html: {class: "text-light"} %>
+  <%= f.input :text, input_html: {rows: "8"}, label_html: {class: "text-light"} %>
+  <%= f.button :submit, class: "btn-lg btn-light" %>
+  <% end %>
+</div>
