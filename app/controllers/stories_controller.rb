@@ -12,7 +12,6 @@ class StoriesController < ApplicationController
       c.create 'grandmother', :female
       c.create 'the wolf', :male
       c.create 'the huntsman', :male
-      c.create 'Julie', :female
     end
 
     @actions = Entities.new(Action) do |a|
