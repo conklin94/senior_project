@@ -3,4 +3,11 @@
 <% content_for :view_class, "nav_item" %>
 <% content_for :page_title, "New Story" %>
 
-<%= render 'form' %>
+<div class="container text-center">
+  <%= simple_form_for @story do |f| %>
+  <%= f.input :title, label_html: {class: "text-light"} %>
+  <%= f.input :author, label_html: {class: "text-light"} %>
+  <%= f.input :text, input_html: {rows: "8", value: @random_story}, label_html: {class: "text-light"} %>
+  <%= f.button :submit, class: "btn-lg btn-light" %>
+  <% end %>
+</div>
