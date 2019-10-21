@@ -5,9 +5,9 @@
 
 <div class="container text-center">
   <%= simple_form_for @story do |f| %>
-  <%= f.input :title, label_html: {class: "text-light"} %>
-  <%= f.input :author, label_html: {class: "text-light"} %>
+  <%= f.input :title, input_html: {value: @title}, label_html: {class: "text-light"} %>
+  <%= f.input :author, input_html: {value: @author}, label_html: {class: "text-light"} %>
   <%= f.input :text, input_html: {rows: "8", value: @random_story}, label_html: {class: "text-light"} %>
-  <%= f.button :submit, class: "btn-lg btn-light" %>
+  <%= f.button :submit, "Save Story", class: "btn-lg btn-light" %>
   <% end %>
 </div>

@@ -4,8 +4,17 @@ class StoriesController < ApplicationController
     @stories = Story.all.order("created_at DESC")
   end
 
-  def new
+  def build_story
     @story = Story.new
+  end
+
+  def new
+    # Source: http://rubyquiz.com/quiz96.html
+    # Original Author: Boris Prinz
+    # Changed by: Seth Conklin
+    @story = Story.new
+    @title = params[:title]
+    @author = params[:author]
     @cast = Entities.new(Character) do |c|
       c.create 'little red-cap', :female
       c.create 'mother', :female

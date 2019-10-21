@@ -6,22 +6,31 @@
   <h4 class="text-light">Fill in the following fields, or click
     <button type="button" class="btn btn-light btn-lg">here</button>
     to randomly generate values</h4>
-  <form>
-    <div class="form-group">
-      <label class="text-light" for="protagonistName">Protagonist Name</label>
-      <input type="text" class="form-control" id="protagonistName" placeholder="Name">
+    <p class="lead bg-warning">Note: Story generation is random, and not
+      everything entered is guaranteed to show up in the story</p>
+  <%= simple_form_for(@story, as: :user, method: :get, url: new_story_path) do |f| %>
+  <%= f.input :title, input_html: {name: "title"}, label_html: {class: "text-light"} %>
+  <%= f.input :author, input_html: {name: "author"}, label_html: {class: "text-light"} %>
+  <%= f.input :number_of_characters, as: :fake_select, collection: 1..20,
+      selected: 4, label_html: {class: "text-light"} %>
+  <div class="form-group row" id="characters">
+    <div class="col-sm-4">
+      <label class="text-light">Name</label>
+      <input class="form-control" type="text" name="name[1]">
     </div>
-    <div class="form-group">
-      <label class="text-light" for="gender">Gender</label>
-      <select class="form-control" id="gender">
-        <option>Male</option>
-        <option>Female</option>
-      </select>
+    <div class="col-sm-4">
+      <label class="text-light">Name</label>
+      <input class="form-control" type="text" name="name[2]">
     </div>
-    <div class="form-group">
-      <label class="text-light" for="age">Age</label>
-      <input type="number" min="0" max="123" class="form-control" id="age" placeholder="Age">
+    <div class="col-sm-4">
+      <label class="text-light">Name</label>
+      <input class="form-control" type="text" name="name[3]">
     </div>
-    <button type="submit" class="btn btn-primary btn-lg">Build</button>
-  </form>
+    <div class="col-sm-4">
+      <label class="text-light">Name</label>
+      <input class="form-control" type="text" name="name[4]">
+    </div>
+  </div>
+  <%= f.button :submit, "Build Story", class: "btn-lg btn-light" %>
+  <% end %>
 </div>

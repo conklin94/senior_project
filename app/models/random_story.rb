@@ -1,5 +1,6 @@
 # Source: http://rubyquiz.com/quiz96.html
-# Author: Boris Prinz
+# Original Author: Boris Prinz
+# Changed by: Seth Conklin
 require 'enumerator'
 
 class RandomStory
