@@ -1,5 +1,6 @@
 # Source: http://rubyquiz.com/quiz96.html
 # Author: Boris Prinz
+# Edited by: Seth Conklin
 class Entities
   def initialize klass
     @entities = []

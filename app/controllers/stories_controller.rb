@@ -15,8 +15,7 @@ class StoriesController < ApplicationController
     @story = Story.new
     @title = params[:title]
     @author = params[:author]
-    @names = params[:name]
-    @genders = params[:gender]
+
     @cast = Entities.new(Character) do |c|
       params[:name].zip(params[:gender]).each do |name, gender|
         c.create name, gender == "female" ? :female : :male
@@ -29,6 +28,8 @@ class StoriesController < ApplicationController
       a.create 'took', [Item]
       a.create 'ate', [Item]
       a.create 'saw', [Item]
+      a.create 'was feeling very hungry', []
+      a.create 'was feeling very tired', []
       a.create 'told', [Character, 'to be careful']
       a.create 'lived in', [Place]
       a.create 'lied in', [Place]
@@ -37,11 +38,13 @@ class StoriesController < ApplicationController
       a.create 'ran away from', [Character, 'as fast as', Pronoun, 'could']
       a.create 'raised', [PossessiveAdjective, 'eyes']
       a.create 'was on', [PossessiveAdjective, 'guard']
+      a.create 'sat on', [Item]
       a.create 'pulled out', [Item, 'from', PossessiveAdjective, 'bag']
       a.create 'thought to', [ ReflexivePronoun,
                                '"this sucks"' ]
       a.create 'attacked', [Character, 'with', Item]
       a.create 'cut off the head of', [Character]
+      a.create 'was sorry', []
       a.create 'looked very strange', []
       a.create 'was beyond hope', []
       a.create 'fell asleep', []
