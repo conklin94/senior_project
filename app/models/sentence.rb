@@ -12,7 +12,8 @@ class Sentence
         @objects << obj_or_type
       else
         if obj_or_type == PossessiveAdjective or
-          obj_or_type == ReflexivePronoun
+          obj_or_type == ReflexivePronoun or
+          obj_or_type == Pronoun
           @objects << obj_or_type.new(@subject.gender)
         else
           thingy = params.fetch(:all)[obj_or_type].pick

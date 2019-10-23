@@ -2,35 +2,80 @@
 <% content_for :create_class, "nav_item active" %>
 <% content_for :view_class, "nav_item" %>
 <% content_for :page_title, "Build your story" %>
-<div class="container text-center">
+<div class="container text-center mb-5">
   <h4 class="text-light">Fill in the following fields, or click
     <button type="button" class="btn btn-light btn-lg">here</button>
     to randomly generate values</h4>
     <p class="lead bg-warning">Note: Story generation is random, and not
       everything entered is guaranteed to show up in the story</p>
   <%= simple_form_for(@story, as: :user, method: :get, url: new_story_path) do |f| %>
-  <%= f.input :title, input_html: {name: "title"}, label_html: {class: "text-light"} %>
-  <%= f.input :author, input_html: {name: "author"}, label_html: {class: "text-light"} %>
-  <%= f.input :number_of_characters, as: :fake_select, collection: 1..20,
-      selected: 4, label_html: {class: "text-light"} %>
-  <div class="form-group row" id="characters">
-    <div class="col-sm-4">
-      <label class="text-light">Name</label>
-      <input class="form-control" type="text" name="name[1]">
+    <%= f.input :title, input_html: {name: "title"}, label_html: {class: "text-light"} %>
+    <%= f.input :author, input_html: {name: "author"}, label_html: {class: "text-light"} %>
+    <%= f.input :number_of_characters, as: :fake_select, collection: 1..20,
+        selected: 1, label_html: {class: "text-light"}, input_html:
+        {onchange: "getCharacters()"} %>
+    <div class="form-group row" id="characters">
+      <div class="col-sm-4">
+        <label class="text-light">Name</label>
+        <input class="form-control" type="text" name="name[]">
+      </div>
+      <div class="col-sm-2">
+        <label class="text-light">Gender</label>
+        <select class="form-control" name="gender[]">
+          <option value="female" selected>Female</option>
+          <option value="male">Male</option>
+        </select>
+      </div>
     </div>
-    <div class="col-sm-4">
-      <label class="text-light">Name</label>
-      <input class="form-control" type="text" name="name[2]">
+    <%= f.input :number_of_items, as: :fake_select, collection: 1..20,
+        selected: 1, label_html: {class: "text-light"}, input_html:
+        {onchange: "getValues('item')"} %>
+    <div class="form-group row" id="items">
+      <div class="col-sm-4">
+        <label class="text-light">Item</label>
+        <input class="form-control" type="text" name="item[]">
+      </div>
     </div>
-    <div class="col-sm-4">
-      <label class="text-light">Name</label>
-      <input class="form-control" type="text" name="name[3]">
+    <%= f.input :number_of_places, as: :fake_select, collection: 1..20,
+        selected: 1, label_html: {class: "text-light"}, input_html:
+        {onchange: "getValues('place')"} %>
+    <div class="form-group row" id="places">
+      <div class="col-sm-4">
+        <label class="text-light">Place</label>
+        <input class="form-control" type="text" name="place[]">
+      </div>
     </div>
-    <div class="col-sm-4">
-      <label class="text-light">Name</label>
-      <input class="form-control" type="text" name="name[4]">
-    </div>
-  </div>
-  <%= f.button :submit, "Build Story", class: "btn-lg btn-light" %>
+    <%= f.button :submit, "Build Story", class: "btn-lg btn-light" %>
   <% end %>
+  <script>
+    function getCharacters() {
+      var characters = parseInt(document.getElementById("number_of_characters").value);
+      var i;
+      var html = '';
+      for (i = 0; i < characters; i++) {
+        html += '<div class="col-sm-4">' + '<label class="text-light">Name</label>'
+             + '<input class="form-control" type="text" name="name[]">'
+             + '</div>' + '<div class="col-sm-2">' +
+             '<label class="text-light">Gender</label>' +
+             '<select class="form-control" name="gender[]">' +
+             '<option value="female" selected>Female</option>' +
+             '<option value="male">Male</option>' + '</select>' + '</div>';
+      }
+      document.getElementById("characters").innerHTML = html;
+    }
+
+    function getValues(type) {
+      var values = parseInt(document.getElementById("number_of_" + type + "s").value);
+      var i;
+      var html = '';
+      for (i = 0; i < values; i++) {
+        html += '<div class="col-sm-4">' +
+                '<label class="text-light">' + type[0].toUpperCase() +
+                type.slice(1) + '</label>' +
+                '<input class="form-control" type="text" name="' + type +
+                '[]">' + '</div>';
+      }
+      document.getElementById(type + "s").innerHTML = html;
+    }
+  </script>
 </div>

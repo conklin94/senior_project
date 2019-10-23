@@ -15,12 +15,12 @@ class StoriesController < ApplicationController
     @story = Story.new
     @title = params[:title]
     @author = params[:author]
+    @names = params[:name]
+    @genders = params[:gender]
     @cast = Entities.new(Character) do |c|
-      c.create 'little red-cap', :female
-      c.create 'mother', :female
-      c.create 'grandmother', :female
-      c.create 'the wolf', :male
-      c.create 'the huntsman', :male
+      params[:name].zip(params[:gender]).each do |name, gender|
+        c.create name, gender == "female" ? :female : :male
+      end
     end
 
     @actions = Entities.new(Action) do |a|
@@ -34,35 +34,38 @@ class StoriesController < ApplicationController
       a.create 'lied in', [Place]
       a.create 'went into', [Place]
       a.create 'ran straight to', [Place]
+      a.create 'ran away from', [Character, 'as fast as', Pronoun, 'could']
       a.create 'raised', [PossessiveAdjective, 'eyes']
       a.create 'was on', [PossessiveAdjective, 'guard']
+      a.create 'pulled out', [Item, 'from', PossessiveAdjective, 'bag']
       a.create 'thought to', [ ReflexivePronoun,
-                               '"what a tender young creature"' ]
-      a.create 'swallowed up', [Character]
-      a.create 'opened the stomach of', [Character]
+                               '"this sucks"' ]
+      a.create 'attacked', [Character, 'with', Item]
+      a.create 'cut off the head of', [Character]
       a.create 'looked very strange', []
-      a.create 'was delighted', []
+      a.create 'was beyond hope', []
       a.create 'fell asleep', []
+      a.create 'collapsed to the floor', []
+      a.create 'tried to get up', []
+      a.create 'begged', [Character, '"Please don\'t do this"']
       a.create 'snored very loud', []
-      a.create 'said: "oh,', [Character, ', what big ears you have"']
+      a.create 'said to', [Character, ', "How could you do this to me"']
+      a.create 'cut off the arm of', [Character, 'with', Item]
       a.create 'was not afraid of', [Character]
       a.create 'walked for a short time by the side of', [Character]
       a.create 'got deeper and deeper into', [Place]
     end
 
     @items = Entities.new(Item) do |i|
-      i.create 'a piece of cake'
-      i.create 'a bottle of wine'
-      i.create 'pretty flowers'
-      i.create 'a pair of scissors'
+      params[:item].each do |item|
+        i.create item
+      end
     end
 
     @places = Entities.new(Place) do |p|
-      p.create 'the wood'
-      p.create 'the village'
-      p.create 'bed'
-      p.create "grandmother's house"
-      p.create 'the room'
+      params[:place].each do |place|
+        p.create place
+      end
     end
 
     @bridges = Entities.new(Bridge) do |b|
