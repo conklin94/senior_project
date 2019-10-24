@@ -2,7 +2,7 @@
 <% content_for :create_class, "nav_item active" %>
 <% content_for :view_class, "nav_item" %>
 <% content_for :page_title, "Build your story" %>
-<div class="container text-center mb-5">
+<div class="container text-left mb-5">
   <h4 class="text-light">Fill in the following fields, or click
     <button type="button" class="btn btn-light btn-lg"
     onclick="alert('This feature has not yet been implemented')">here</button>
@@ -12,9 +12,7 @@
   <%= simple_form_for(@story, as: :user, method: :get, url: new_story_path) do |f| %>
     <%= f.input :title, input_html: {name: "title"}, label_html: {class: "text-light"} %>
     <%= f.input :author, input_html: {name: "author"}, label_html: {class: "text-light"} %>
-    <%= f.input :number_of_characters, as: :fake_select, collection: 1..20,
-        selected: 1, label_html: {class: "text-light"}, input_html:
-        {onchange: "getCharacters()"} %>
+    <h4 class="text-light mt-3 text-left">Characters</h4>
     <div class="form-group row" id="characters">
       <div class="col-sm-4">
         <label class="text-light">Name</label>
@@ -28,55 +26,90 @@
         </select>
       </div>
     </div>
-    <%= f.input :number_of_items, as: :fake_select, collection: 1..20,
-        selected: 1, label_html: {class: "text-light"}, input_html:
-        {onchange: "getValues('item')"} %>
+    <button class="btn btn-light" type="button" onclick="addCharacter()"
+    name="add" id="add_character">Add</button>
+    <button class="btn btn-light" type="button" onclick="removeCharacter()"
+    name="remove" id="remove_character">Remove</button>
+    <h4 class="text-light mt-3">Items</h4>
     <div class="form-group row" id="items">
       <div class="col-sm-4">
         <label class="text-light">Item</label>
         <input class="form-control" type="text" name="item[]">
       </div>
     </div>
-    <%= f.input :number_of_places, as: :fake_select, collection: 1..20,
-        selected: 1, label_html: {class: "text-light"}, input_html:
-        {onchange: "getValues('place')"} %>
+    <button class="btn btn-light" type="button" onclick="addValue('item')"
+    name="add" id="add_item">Add</button>
+    <button class="btn btn-light" type="button" onclick="removeValue('item')"
+    name="remove" id="remove_item">Remove</button>
+    <h4 class="text-light mt-3 text-left">Places</h4>
     <div class="form-group row" id="places">
       <div class="col-sm-4">
         <label class="text-light">Place</label>
         <input class="form-control" type="text" name="place[]">
       </div>
     </div>
-    <%= f.button :submit, "Build Story", class: "btn-lg btn-light" %>
+    <button class="btn btn-light" type="button" onclick="addValue('place')"
+    name="add" id="add_place">Add</button>
+    <button class="btn btn-light" type="button" onclick="removeValue('place')"
+    name="remove" id="remove_place">Remove</button>
+    <br>
+    <%= f.button :submit, "Build Story", class: "btn-lg btn-light mt-3" %>
   <% end %>
   <script>
-    function getCharacters() {
-      var characters = parseInt(document.getElementById("number_of_characters").value);
-      var i;
-      var html = '';
-      for (i = 0; i < characters; i++) {
-        html += '<div class="col-sm-4">' + '<label class="text-light">Name</label>'
-             + '<input class="form-control" type="text" name="name[]">'
-             + '</div>' + '<div class="col-sm-2">' +
-             '<label class="text-light">Gender</label>' +
-             '<select class="form-control" name="gender[]">' +
-             '<option value="female" selected>Female</option>' +
-             '<option value="male">Male</option>' + '</select>' + '</div>';
+    function addCharacter() {
+      var name = document.createElement("DIV");
+      var gender = document.createElement("DIV");
+      var characters = document.getElementById("characters");
+      name.className = "col-sm-4";
+      gender.className = "col-sm-2";
+      name.innerHTML = '<label class="text-light">Name</label>' +
+      '<input class="form-control" type="text" name="name[]">';
+      gender.innerHTML = '<label class="text-light">Gender</label>' +
+      '<select class="form-control" name="gender[]">' +
+      '<option value="female" selected>Female</option>' +
+      '<option value="male">Male</option>' + '</select>';
+      characters.appendChild(name);
+      characters.appendChild(gender);
+
+      var remove_char = document.getElementById("remove_character");
+      if(getComputedStyle(remove_char,null).display == "none") {
+        remove_char.style.display = "inline";
       }
-      document.getElementById("characters").innerHTML = html;
+    }
+    function removeCharacter() {
+      var characters = document.getElementById("characters");
+      var length = characters.childNodes.length;
+      if (length > 5) {
+        characters.removeChild(characters.childNodes[length - 1]);
+        characters.removeChild(characters.childNodes[length - 2]);
+      }
+      if(characters.childNodes.length == 5) {
+        document.getElementById("remove_character").style.display = "none";
+      };
     }
 
-    function getValues(type) {
-      var values = parseInt(document.getElementById("number_of_" + type + "s").value);
-      var i;
-      var html = '';
-      for (i = 0; i < values; i++) {
-        html += '<div class="col-sm-4">' +
-                '<label class="text-light">' + type[0].toUpperCase() +
-                type.slice(1) + '</label>' +
-                '<input class="form-control" type="text" name="' + type +
-                '[]">' + '</div>';
+    function addValue(type) {
+      var div = document.createElement("DIV");
+      div.className = "col-sm-4";
+      div.innerHTML = '<label class="text-light">' + type[0].toUpperCase() +
+      type.slice(1) + '</label>' +
+      '<input class="form-control" type="text" name="' + type + '[]">';
+      document.getElementById(type + "s").appendChild(div);
+
+      var remove = document.getElementById("remove_" + type);
+      if(getComputedStyle(remove,null).display == "none") {
+        remove.style.display = "inline";
       }
-      document.getElementById(type + "s").innerHTML = html;
+    }
+    function removeValue(type) {
+      var values = document.getElementById(type + "s");
+      var length = values.childNodes.length;
+      if (length > 3) {
+        values.removeChild(values.childNodes[length - 1]);
+      }
+      if (values.childNodes.length == 3) {
+        document.getElementById("remove_" + type).style.display = "none";
+      }
     }
   </script>
 </div>
