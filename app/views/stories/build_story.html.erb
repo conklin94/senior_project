@@ -12,7 +12,7 @@
   <%= simple_form_for(@story, as: :user, method: :get, url: new_story_path) do |f| %>
     <%= f.input :title, input_html: {name: "title"}, label_html: {class: "text-light"} %>
     <%= f.input :author, input_html: {name: "author"}, label_html: {class: "text-light"} %>
-    <h4 class="text-light mt-3 text-left">Characters</h4>
+    <h4 class="text-light mt-3">Characters</h4>
     <div class="form-group row" id="characters">
       <div class="col-sm-4">
         <label class="text-light">Name</label>
@@ -41,7 +41,7 @@
     name="add" id="add_item">Add</button>
     <button class="btn btn-light" type="button" onclick="removeValue('item')"
     name="remove" id="remove_item">Remove</button>
-    <h4 class="text-light mt-3 text-left">Places</h4>
+    <h4 class="text-light mt-3">Places</h4>
     <div class="form-group row" id="places">
       <div class="col-sm-4">
         <label class="text-light">Place</label>

@@ -1,7 +1,7 @@
 <% content_for :home_class, "nav_item" %>
 <% content_for :create_class, "nav_item" %>
 <% content_for :view_class, "nav_item active" %>
-<% content_for :page_title, "Index" %>
+<% content_for :page_title, "Story List" %>
 <% @stories.each do |story| %>
   <div class="container bg-light text-left mt-2">
       <h3><%= link_to story.title, story %></h3>
