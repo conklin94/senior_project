@@ -2,8 +2,9 @@
 <% content_for :create_class, "nav_item" %>
 <% content_for :view_class, "nav_item" %>
 <% content_for :page_title, "New Story" %>
-
 <div class="container text-center">
+  <button type="button" name="refresh" onclick="location.reload()"
+  class="btn btn-light m-3">Retry</button>
   <%= simple_form_for @story do |f| %>
   <%= f.input :title, input_html: {value: @title}, label_html: {class: "text-light"} %>
   <%= f.input :author, input_html: {value: @author}, label_html: {class: "text-light"} %>

@@ -13,7 +13,7 @@ class RandomStory
     combine_subjects
   end
 
-  # When the last sentece had the sam subject, replace subject with
+  # When the last sentece had the same subject, replace subject with
   # 'he' or 'she'
   def combine_subjects
     @sentences.each_cons(2) do |s1, s2|

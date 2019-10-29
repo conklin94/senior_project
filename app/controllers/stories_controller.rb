@@ -40,8 +40,7 @@ class StoriesController < ApplicationController
       a.create 'was on', [PossessiveAdjective, 'guard']
       a.create 'sat on', [Item]
       a.create 'pulled out', [Item, 'from', PossessiveAdjective, 'bag']
-      a.create 'thought to', [ ReflexivePronoun,
-                               '"this sucks"' ]
+      a.create 'thought to', [ReflexivePronoun, '"this sucks"' ]
       a.create 'attacked', [Character, 'with', Item]
       a.create 'cut off the head of', [Character]
       a.create 'was sorry', []
