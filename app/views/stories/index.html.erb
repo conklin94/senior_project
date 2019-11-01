@@ -6,6 +6,6 @@
   <div class="container bg-light text-left mt-2">
       <h3><%= link_to story.title, story %></h3>
       <h4>By <%= story.author %></h4>
-      <p class="lead"><%= story.text[0..100] + (story.text.length > 100 ? '...': '') %></p>
+      <p class="lead"><%= story.text %></p>
   </div>
 <% end %>

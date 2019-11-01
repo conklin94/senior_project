@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   get 'build' => 'stories#build_story'
 
   resources :stories
+
+  resources :verbs
 end
