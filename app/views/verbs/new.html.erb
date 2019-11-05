@@ -1,7 +1,8 @@
 <% content_for :home_class, "nav_item" %>
 <% content_for :create_class, "nav_item" %>
 <% content_for :view_class, "nav_item" %>
-<% content_for :page_title, "New Action" %>
+<% content_for :verb_class, "nav_item" %>
+<% content_for :page_title, "New Verb" %>
 <div class="container text-center">
   <%= simple_form_for @verb do |f| %>
   <%= f.input :name, label_html: {class: "text-light"} %>

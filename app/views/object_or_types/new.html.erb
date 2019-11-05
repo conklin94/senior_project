@@ -1,0 +1,15 @@
+<% content_for :home_class, "nav_item" %>
+<% content_for :create_class, "nav_item" %>
+<% content_for :view_class, "nav_item" %>
+<% content_for :verb_class, "nav_item" %>
+<% content_for :page_title, "New Object or Type" %>
+<div class="container text-center">
+  <%= simple_form_for @object_or_type do |f| %>
+  <%= f.input :name, label_html: {class: "text-light"} %>
+  <%= f.input :class_or_string, collection: [['Class', 'class'],
+  ['String', 'string']], label_html: {class: "text-light"} %>
+  <%= f.input :order, collection: 1..20, label_html: {class: "text-light"} %>
+  <input type="hidden" name="object_or_type[verb_id]" id="object_or_type_verb_id" value="<%= @verb_id %>">
+  <%= f.button :submit, class: "btn-lg btn-light" %>
+  <% end %>
+</div>

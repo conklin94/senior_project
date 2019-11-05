@@ -7,4 +7,6 @@ Rails.application.routes.draw do
   resources :stories
 
   resources :verbs
+
+  resources :object_or_types, only: [:new, :create, :update, :edit, :destroy]
 end

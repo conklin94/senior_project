@@ -1,0 +1,28 @@
+<% content_for :home_class, "nav_item" %>
+<% content_for :create_class, "nav_item" %>
+<% content_for :view_class, "nav_item" %>
+<% content_for :verb_class, "nav_item" %>
+<% content_for :page_title, "Edit Verb" %>
+<div class="container text-center">
+  <%= simple_form_for @verb do |f| %>
+  <%= f.input :name, label_html: {class: "text-light"} %>
+  <%= f.input :part, collection: [['Beginning', 'beginning'],
+  ['Middle', 'middle'], ['End', 'end']],
+  prompt: "Choose the story part", label_html: {class: "text-light"} %>
+  <input type="hidden" name="verb_id" id="verb_id" value="<%= @verb.id %>">
+  <div class="row">
+    <% @verb.object_or_types.order([:order]).each do |object_or_type| %>
+      <div class="col-sm-3">
+        <p class="lead text-light"><u><%= object_or_type.class_or_string.capitalize %></u></p>
+        <p class="lead text-light"><%= object_or_type.name %></p>
+        <%= link_to "Edit", edit_object_or_type_path(object_or_type), class: "btn btn-light" %>
+        <%= link_to "Delete", object_or_type_path(object_or_type), method: :delete, data: {confirm: "Are you sure? "}, class: "btn btn-danger" %>
+      </div>
+    <% end %>
+    <div class="col-sm-3">
+        <%= link_to "New Object or Type", new_object_or_type_path(verb_id: @verb.id), class: "btn btn-light" %>
+    </div>
+  </div>
+  <%= f.button :submit, class: "btn-lg btn-light" %>
+  <% end %>
+</div>

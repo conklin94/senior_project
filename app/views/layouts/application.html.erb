@@ -28,6 +28,11 @@
             <li class="<%= yield :view_class %>">
               <%= link_to "View Stories", stories_path, :class => "nav-link" %>
             </li>
+            <% if content_for?(:page_title) %>
+            <li class="<%= yield :verb_class %>">
+              <%= link_to "View Verbs", verbs_path, :class => "nav-link" %>
+            </li>
+            <% end %>
           </ul>
         </div>
       </nav>

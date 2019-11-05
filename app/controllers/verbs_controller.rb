@@ -54,8 +54,4 @@ class VerbsController < ApplicationController
   def verb_params
     params.require(:verb).permit(:name,:part)
   end
-
-  def object_params
-    params.require(:object_or_type).permit(:name,:type,:order)
-  end
 end
