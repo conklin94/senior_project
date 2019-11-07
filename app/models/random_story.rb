@@ -8,7 +8,11 @@ class RandomStory
     @sentences = []
     @bridges = params.fetch(:bridges)
     1.upto(rand(10)+10) do
-      @sentences << Sentence.new(params)
+      new_sentence = Sentence.new(params)
+      while (@sentences.include? new_sentence) do
+        new_sentence = Sentence.new(params)
+      end
+      @sentences << new_sentence
     end
     combine_subjects
   end

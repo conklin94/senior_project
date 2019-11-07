@@ -3,6 +3,8 @@
 # Changed by: Seth Conklin
 class Sentence
   attr_accessor :subject
+  attr_reader :verb, :objects
+
   def initialize (params = {})
     @subject = params.fetch(:cast).pick
     @verb = params.fetch(:actions).pick
@@ -24,6 +26,10 @@ class Sentence
         end
       end
     end
+  end
+
+  def == (new_sentence)
+    self.to_s == new_sentence.to_s
   end
 
   def to_s
