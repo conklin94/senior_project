@@ -22,41 +22,17 @@ class StoriesController < ApplicationController
       end
     end
 
+    @verbs = Verb.all
+
     @actions = Entities.new(Action) do |a|
-      a.create 'met', [Character]
-      a.create 'gave', [Item, 'to', Character]
-      a.create 'took', [Item]
-      a.create 'ate', [Item]
-      a.create 'saw', [Item]
-      a.create 'was feeling very hungry', []
-      a.create 'was feeling very tired', []
-      a.create 'told', [Character, 'to be careful']
-      a.create 'lived in', [Place]
-      a.create 'lied in', [Place]
-      a.create 'went into', [Place]
-      a.create 'ran straight to', [Place]
-      a.create 'ran away from', [Character, 'as fast as', Pronoun, 'could']
-      a.create 'raised', [PossessiveAdjective, 'eyes']
-      a.create 'was on', [PossessiveAdjective, 'guard']
-      a.create 'sat on', [Item]
-      a.create 'pulled out', [Item, 'from', PossessiveAdjective, 'bag']
-      a.create 'thought to', [ReflexivePronoun, '"this sucks"' ]
-      a.create 'attacked', [Character, 'with', Item]
-      a.create 'cut off the head of', [Character]
-      a.create 'was sorry', []
-      a.create 'looked very strange', []
-      a.create 'was beyond hope', []
-      a.create 'fell asleep', []
-      a.create 'collapsed to the floor', []
-      a.create 'tried to get up', []
-      a.create 'begged', [Character, '"Please don\'t do this!"']
-      a.create 'snored very loud', []
-      a.create 'said to', [Character, ', "How could you do this to me?"']
-      a.create 'cut off the arm of', [Character, 'with', Item]
-      a.create 'was not afraid of', [Character]
-      a.create 'fought valiantly', []
-      a.create 'walked for a short time by the side of', [Character]
-      a.create 'got deeper and deeper into', [Place]
+      @verbs.each do |verb|
+        objects_or_types = []
+        verb.object_or_types.order([:order]).each do |object_or_type|
+          objects_or_types << (object_or_type.class_or_string == "class" ? Object.const_get(object_or_type.name) : object_or_type.name)
+        end
+        a.create verb.name, objects_or_types
+      end
+
     end
 
     @items = Entities.new(Item) do |i|
