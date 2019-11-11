@@ -1,0 +1,2 @@
+class RandomCharacter < ApplicationRecord
+end

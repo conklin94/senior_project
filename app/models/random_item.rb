@@ -1,0 +1,2 @@
+class RandomItem < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class RandomPlace < ApplicationRecord
+end
