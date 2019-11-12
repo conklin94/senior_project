@@ -5,7 +5,7 @@
 <div class="container text-left mb-5">
   <h4 class="text-light">Fill in the following fields, or click
     <button type="button" class="btn btn-light btn-lg"
-    onclick="alert('This feature has not yet been implemented')">here</button>
+    onclick="getRandomValues()">here</button>
     to randomly generate values</h4>
     <p class="lead bg-warning">Note: Story generation is random, and not
       everything entered is guaranteed to show up in the story</p>
@@ -56,6 +56,7 @@
     <%= f.button :submit, "Build Story", class: "btn-lg btn-light mt-3" %>
   <% end %>
   <script>
+    // Add an additional field for a Character to the form
     function addCharacter() {
       var name = document.createElement("DIV");
       var gender = document.createElement("DIV");
@@ -76,6 +77,8 @@
         remove_char.style.display = "inline";
       }
     }
+
+    // Remove a field for a Character from the form
     function removeCharacter() {
       var characters = document.getElementById("characters");
       var length = characters.childNodes.length;
@@ -88,6 +91,7 @@
       };
     }
 
+    // Add a field for either a place or a
     function addValue(type) {
       var div = document.createElement("DIV");
       div.className = "col-sm-4";
@@ -101,6 +105,7 @@
         remove.style.display = "inline";
       }
     }
+
     function removeValue(type) {
       var values = document.getElementById(type + "s");
       var length = values.childNodes.length;
@@ -110,6 +115,66 @@
       if (values.childNodes.length == 3) {
         document.getElementById("remove_" + type).style.display = "none";
       }
+    }
+
+    function rand(upper_limit) {
+      return Math.floor(Math.random() * upper_limit)
+    }
+
+    function getRandomValues() {
+      var title = document.getElementById("user_title");
+      var author = document.getElementById("user_author");
+      var names = document.getElementsByName("name[]");
+      var genders = document.getElementsByName("gender[]");
+      var items = document.getElementsByName("item[]");
+      var places = document.getElementsByName("place[]");
+      var names_used = new Array(names.length);
+      var items_used = new Array(items.length);
+      var places_used = new Array(places.length);
+      var character_array = <%= @random_characters.to_json.html_safe %>;
+      var item_array = <%= @random_items.to_json.html_safe %>;
+      var place_array = <%= @random_places.to_json.html_safe %>;
+
+      var i;
+      var random;
+      for (i = 0; i < names.length; i++) {
+        random = rand(character_array.length);
+        names[i].value = character_array[random].name;
+        genders[i].value = character_array[random].gender;
+      }
+
+      for (i = 0; i < items.length; i++) {
+        items[i].value = item_array[rand(item_array.length)].name;
+      }
+
+      for (i = 0; i < places.length; i++) {
+        places[i].value = place_array[rand(place_array.length)].name;
+      }
+
+      author.value = character_array[rand(character_array.length)].name;
+      switch(rand(6)) {
+        case 0:
+          title.value = 'The story of ' + names[rand(names.length)].value;
+          break;
+        case 1:
+          title.value = 'Trouble in ' + places[rand(places.length)].value;
+          break;
+        case 2:
+          title.value = 'The mystery of ' + items[rand(items.length)].value;
+          break;
+        case 3:
+          title.value = names[rand(names.length)].value + ' goes to ' +
+            places[rand(places.length)].value;
+          break;
+        case 4:
+          title.value = names[rand(names.length)].value + ' and ' +
+            items[rand(items.length)].value;
+          break;
+        case 5:
+          title.value = items[rand(items.length)].value + ' in ' + places[rand(places.length)].value;
+          break;
+      }
+
     }
   </script>
 </div>
