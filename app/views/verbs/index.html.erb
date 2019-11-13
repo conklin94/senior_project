@@ -5,22 +5,49 @@
 <% content_for :page_title, "Verb Index" %>
 <div class="container">
   <%= link_to "New Verb", new_verb_path, class: "btn btn-light" %>
-  <% @verbs.each do |verb| %>
+  <h2 class="text-light text-center">Beginning</h2>
+  <% @verbs.where(part: 'beginning').each do |verb| %>
     <div class="row bg-light text-left mt-2">
-      <div class="col-sm-3">
-        <h3><u>Story Part</u></h3>
-        <h3><%= verb.part %></h3>
-      </div>
       <div class="col-sm-3">
         <h3><u>Verb</u></h3>
         <h3><%= link_to verb.name, verb %></h3>
       </div>
-        <% verb.object_or_types.order([:order]).each do |object_or_type| %>
-          <div class="col-sm-3">
-            <h3><u><%= object_or_type.class_or_string.capitalize %></u></h3>
-            <h3><%= object_or_type.name %></h3>
-          </div>
-        <% end %>
+      <% verb.object_or_types.order([:order]).each do |object_or_type| %>
+        <div class="col-sm-3">
+          <h3><u><%= object_or_type.class_or_string.capitalize %></u></h3>
+          <h3><%= object_or_type.name %></h3>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <h2 class="text-light text-center">Middle</h2>
+  <% @verbs.where(part: 'middle').each do |verb| %>
+    <div class="row bg-light text-left mt-2">
+      <div class="col-sm-3">
+        <h3><u>Verb</u></h3>
+        <h3><%= link_to verb.name, verb %></h3>
+      </div>
+      <% verb.object_or_types.order([:order]).each do |object_or_type| %>
+        <div class="col-sm-3">
+          <h3><u><%= object_or_type.class_or_string.capitalize %></u></h3>
+          <h3><%= object_or_type.name %></h3>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <h2 class="text-light text-center">End</h2>
+  <% @verbs.where(part: 'end').each do |verb| %>
+    <div class="row bg-light text-left mt-2">
+      <div class="col-sm-3">
+        <h3><u>Verb</u></h3>
+        <h3><%= link_to verb.name, verb %></h3>
+      </div>
+      <% verb.object_or_types.order([:order]).each do |object_or_type| %>
+        <div class="col-sm-3">
+          <h3><u><%= object_or_type.class_or_string.capitalize %></u></h3>
+          <h3><%= object_or_type.name %></h3>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>

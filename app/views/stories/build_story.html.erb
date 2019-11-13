@@ -91,7 +91,8 @@
       };
     }
 
-    // Add a field for either a place or a
+    // Add a field for either a place or an item
+    // variable type should be "place" or "item"
     function addValue(type) {
       var div = document.createElement("DIV");
       div.className = "col-sm-4";
@@ -106,6 +107,8 @@
       }
     }
 
+    // Removes a field for a place or item
+    // variable type should be "place" or "item"
     function removeValue(type) {
       var values = document.getElementById(type + "s");
       var length = values.childNodes.length;
@@ -117,10 +120,12 @@
       }
     }
 
+    // Get a random integer from 0 to one less than the upper limit
     function rand(upper_limit) {
       return Math.floor(Math.random() * upper_limit)
     }
 
+    // Fill in all of the current fields
     function getRandomValues() {
       var title = document.getElementById("user_title");
       var author = document.getElementById("user_author");

@@ -6,43 +6,9 @@ class StoriesController < ApplicationController
 
   def build_story
     @story = Story.new
-
-    #offset = rand(RandomCharacter.count)
-    #@random_author = RandomCharacter.offset(offset).first.name
-
     @random_characters = RandomCharacter.all
-    #1.upto(rand(3)+3) do
-    #  offset = rand(RandomCharacter.count)
-    #  @random_characters << RandomCharacter.offset(offset).first
-    #end
-
     @random_items = RandomItem.all
-    #1.upto(rand(3)+3) do
-    #  offset = rand(RandomItem.count)
-    #  @random_items << RandomItem.offset(offset).first
-    #end
-
     @random_places = RandomPlace.all
-    #1.upto(rand(3)+3) do
-    #  offset = rand(RandomPlace.count)
-    #  @random_places << RandomPlace.offset(offset).first
-    #end
-
-    #@random_title = ''
-    #case rand(6)
-    #when 0
-    #  @random_title = 'The story of ' + @random_characters[rand(@random_characters.length)].name
-    #when 1
-    #  @random_title = 'Trouble in ' + @random_places[rand(@random_places.length)].name
-    #when 2
-    #  @random_title = 'The mystery of ' + @random_items[rand(@random_items.length)].name
-    #when 3
-    #  @random_title = @random_characters[rand(@random_characters.length)].name + ' goes to ' + @random_places[rand(@random_places.length)].name
-    #when 4
-    #  @random_title = @random_characters[rand(@random_characters.length)].name + ' and ' + @random_items[rand(@random_items.length)].name
-    #when 5
-    #  @random_title = @random_items[rand(@random_items.length)].name + ' in ' + @random_places[rand(@random_places.length)].name
-    #end
   end
 
   def new
