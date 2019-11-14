@@ -7,14 +7,31 @@ class RandomStory
   def initialize (params = {})
     @sentences = []
     @bridges = params.fetch(:bridges)
-    1.upto(rand(10)+10) do
+    all_actions = params[:actions].entities
+
+    # Divide the story into beginning, middle, and end
+    params[:actions].entities = all_actions.select {|a| a.part == 'beginning'}
+    add_sentences(params, 3)
+
+    params[:actions].entities = all_actions.select {|a| a.part == 'middle'}
+    add_sentences(params, 4)
+
+    params[:actions].entities = all_actions.select {|a| a.part == 'end'}
+    add_sentences(params, 3)
+
+    combine_subjects
+  end
+
+  # Add anywhere from count to 2 x count sentences to the story using the
+  # provided parameters
+  def add_sentences(params, count)
+    1.upto(rand(count)+count) do
       new_sentence = Sentence.new(params)
       while (@sentences.include? new_sentence) do
         new_sentence = Sentence.new(params)
       end
       @sentences << new_sentence
     end
-    combine_subjects
   end
 
   # When the last sentece had the same subject, replace subject with

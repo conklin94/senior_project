@@ -33,7 +33,7 @@ class StoriesController < ApplicationController
         verb.object_or_types.order([:order]).each do |object_or_type|
           objects_or_types << (object_or_type.class_or_string == "class" ? Object.const_get(object_or_type.name) : object_or_type.name)
         end
-        a.create verb.name, objects_or_types
+        a.create verb.name, objects_or_types, verb.part
       end
 
     end

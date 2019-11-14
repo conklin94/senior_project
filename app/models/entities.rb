@@ -12,6 +12,14 @@ class Entities
     @entities << @klass.new(*args)
   end
 
+  def entities
+    @entities
+  end
+
+  def entities=(entities)
+    @entities = entities
+  end
+
   def pick
     @entities[rand(@entities.size)]
   end
