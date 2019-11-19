@@ -1,4 +1,13 @@
 class StoriesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :check_user, only: [:edit, :update, :destroy]
+
+  def check_user
+    @story = Story.find(params[:id])
+    unless current_user.id == @story.user_id || current_user.admin
+      redirect_to(@story, notice: "You do not have permissions to make changes to this story")
+    end
+  end
 
   def index
     @stories = Story.all.order("created_at DESC")
@@ -112,6 +121,6 @@ class StoriesController < ApplicationController
   private
 
   def story_params
-    params.require(:story).permit(:title,:author,:text)
+    params.require(:story).permit(:title,:author,:text,:user_id)
   end
 end

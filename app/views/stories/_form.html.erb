@@ -3,6 +3,7 @@
   <%= f.input :title, label_html: {class: "text-light"} %>
   <%= f.input :author, label_html: {class: "text-light"} %>
   <%= f.input :text, input_html: {rows: "8"}, label_html: {class: "text-light"} %>
+  <%= f.input :user_id, input_html: {type: "hidden"}, label: false %>
   <%= f.button :submit, class: "btn-lg btn-light" %>
   <% end %>
 </div>

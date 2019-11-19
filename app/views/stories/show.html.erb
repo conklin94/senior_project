@@ -1,10 +1,9 @@
-<% content_for :home_class, "nav_item" %>
-<% content_for :create_class, "nav_item" %>
-<% content_for :view_class, "nav_item" %>
 <% content_for :page_title, @story.title %>
 <div class="container text-center bg-light pt-1 pb-1">
   <h2>By <%= @story.author %></h2>
   <p class="lead"><%= @story.text %></p>
-  <%= link_to "Edit", edit_story_path(@story), class: "btn btn-secondary" %>
-  <%= link_to "Delete", story_path(@story), method: :delete, data: {confirm: "Are you sure? "}, class: "btn btn-danger" %>
+  <% if current_user.id == @story.user_id || current_user.admin %>
+    <%= link_to "Edit", edit_story_path(@story), class: "btn btn-secondary" %>
+    <%= link_to "Delete", story_path(@story), method: :delete, data: {confirm: "Are you sure? "}, class: "btn btn-danger" %>
+  <% end %>
 </div>

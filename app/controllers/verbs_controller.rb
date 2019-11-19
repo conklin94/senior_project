@@ -1,4 +1,12 @@
 class VerbsController < ApplicationController
+  before_action :authenticate_user!, :check_admin
+
+  def check_admin
+    unless current_user.admin
+      redirect_to '/'
+    end
+  end
+
   def index
     @verbs = Verb.all.order("part, created_at")
   end

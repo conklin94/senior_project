@@ -1,4 +1,12 @@
 class ObjectOrTypesController < ApplicationController
+  before_action :authenticate_user!, :check_admin
+
+  def check_admin
+    unless current_user.admin
+      redirect_to '/'
+    end
+  end
+
   def new
     @object_or_type = ObjectOrType.new
     @verb_id = params[:verb_id]
