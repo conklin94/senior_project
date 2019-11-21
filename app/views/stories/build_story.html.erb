@@ -10,6 +10,7 @@
   <%= simple_form_for(@story, as: :user, method: :get, url: new_story_path) do |f| %>
     <%= f.input :title, input_html: {name: "title"}, label_html: {class: "text-light"} %>
     <%= f.input :author, input_html: {name: "author"}, label_html: {class: "text-light"} %>
+    <!-- Story Characters -->
     <h4 class="text-light mt-3">Characters</h4>
     <div class="form-group row" id="characters">
       <div class="col-sm-4">
@@ -28,6 +29,7 @@
     name="add" id="add_character">Add</button>
     <button class="btn btn-light" type="button" onclick="removeCharacter()"
     name="remove" id="remove_character">Remove</button>
+    <!-- Story Items -->
     <h4 class="text-light mt-3">Items</h4>
     <div class="form-group row" id="items">
       <div class="col-sm-4">
@@ -39,6 +41,7 @@
     name="add" id="add_item">Add</button>
     <button class="btn btn-light" type="button" onclick="removeValue('item')"
     name="remove" id="remove_item">Remove</button>
+    <!-- Story Places -->
     <h4 class="text-light mt-3">Places</h4>
     <div class="form-group row" id="places">
       <div class="col-sm-4">
@@ -53,131 +56,63 @@
     <br>
     <%= f.button :submit, "Build Story", class: "btn-lg btn-light mt-3" %>
   <% end %>
-  <script>
-    // Add an additional field for a Character to the form
-    function addCharacter() {
-      var name = document.createElement("DIV");
-      var gender = document.createElement("DIV");
-      var characters = document.getElementById("characters");
-      name.className = "col-sm-4";
-      gender.className = "col-sm-2";
-      name.innerHTML = '<label class="text-light">Name</label>' +
-      '<input class="form-control" type="text" name="name[]">';
-      gender.innerHTML = '<label class="text-light">Gender</label>' +
-      '<select class="form-control" name="gender[]">' +
-      '<option value="female" selected>Female</option>' +
-      '<option value="male">Male</option>' + '</select>';
-      characters.appendChild(name);
-      characters.appendChild(gender);
-
-      var remove_char = document.getElementById("remove_character");
-      if(getComputedStyle(remove_char,null).display == "none") {
-        remove_char.style.display = "inline";
-      }
-    }
-
-    // Remove a field for a Character from the form
-    function removeCharacter() {
-      var characters = document.getElementById("characters");
-      var length = characters.childNodes.length;
-      if (length > 5) {
-        characters.removeChild(characters.childNodes[length - 1]);
-        characters.removeChild(characters.childNodes[length - 2]);
-      }
-      if(characters.childNodes.length == 5) {
-        document.getElementById("remove_character").style.display = "none";
-      };
-    }
-
-    // Add a field for either a place or an item
-    // variable type should be "place" or "item"
-    function addValue(type) {
-      var div = document.createElement("DIV");
-      div.className = "col-sm-4";
-      div.innerHTML = '<label class="text-light">' + type[0].toUpperCase() +
-      type.slice(1) + '</label>' +
-      '<input class="form-control" type="text" name="' + type + '[]">';
-      document.getElementById(type + "s").appendChild(div);
-
-      var remove = document.getElementById("remove_" + type);
-      if(getComputedStyle(remove,null).display == "none") {
-        remove.style.display = "inline";
-      }
-    }
-
-    // Removes a field for a place or item
-    // variable type should be "place" or "item"
-    function removeValue(type) {
-      var values = document.getElementById(type + "s");
-      var length = values.childNodes.length;
-      if (length > 3) {
-        values.removeChild(values.childNodes[length - 1]);
-      }
-      if (values.childNodes.length == 3) {
-        document.getElementById("remove_" + type).style.display = "none";
-      }
-    }
-
-    // Get a random integer from 0 to one less than the upper limit
-    function rand(upper_limit) {
-      return Math.floor(Math.random() * upper_limit)
-    }
-
-    // Fill in all of the current fields
-    function getRandomValues() {
-      var title = document.getElementById("user_title");
-      var author = document.getElementById("user_author");
-      var names = document.getElementsByName("name[]");
-      var genders = document.getElementsByName("gender[]");
-      var items = document.getElementsByName("item[]");
-      var places = document.getElementsByName("place[]");
-      var names_used = new Array(names.length);
-      var items_used = new Array(items.length);
-      var places_used = new Array(places.length);
-      var character_array = <%= @random_characters.to_json.html_safe %>;
-      var item_array = <%= @random_items.to_json.html_safe %>;
-      var place_array = <%= @random_places.to_json.html_safe %>;
-
-      var i;
-      var random;
-      for (i = 0; i < names.length; i++) {
-        random = rand(character_array.length);
-        names[i].value = character_array[random].name;
-        genders[i].value = character_array[random].gender;
-      }
-
-      for (i = 0; i < items.length; i++) {
-        items[i].value = item_array[rand(item_array.length)].name;
-      }
-
-      for (i = 0; i < places.length; i++) {
-        places[i].value = place_array[rand(place_array.length)].name;
-      }
-
-      author.value = character_array[rand(character_array.length)].name;
-      switch(rand(6)) {
-        case 0:
-          title.value = 'The story of ' + names[rand(names.length)].value;
-          break;
-        case 1:
-          title.value = 'Trouble in ' + places[rand(places.length)].value;
-          break;
-        case 2:
-          title.value = 'The mystery of ' + items[rand(items.length)].value;
-          break;
-        case 3:
-          title.value = names[rand(names.length)].value + ' goes to ' +
-            places[rand(places.length)].value;
-          break;
-        case 4:
-          title.value = names[rand(names.length)].value + ' and ' +
-            items[rand(items.length)].value;
-          break;
-        case 5:
-          title.value = items[rand(items.length)].value + ' in ' + places[rand(places.length)].value;
-          break;
-      }
-
-    }
-  </script>
 </div>
+<script type="text/javascript" src="/js/build_story.js"></script>
+<script type="text/javascript">
+  // Fill in all of the current fields
+  function getRandomValues() {
+    var title = document.getElementById("user_title");
+    var author = document.getElementById("user_author");
+    var names = document.getElementsByName("name[]");
+    var genders = document.getElementsByName("gender[]");
+    var items = document.getElementsByName("item[]");
+    var places = document.getElementsByName("place[]");
+    var names_used = new Array(names.length);
+    var items_used = new Array(items.length);
+    var places_used = new Array(places.length);
+    var character_array = <%= @random_characters.to_json.html_safe %>
+    var item_array = <%= @random_items.to_json.html_safe %>
+    var place_array = <%= @random_places.to_json.html_safe %>
+
+    var i;
+    var random;
+    for (i = 0; i < names.length; i++) {
+      random = rand(character_array.length);
+      names[i].value = character_array[random].name;
+      genders[i].value = character_array[random].gender;
+    }
+
+    for (i = 0; i < items.length; i++) {
+      items[i].value = item_array[rand(item_array.length)].name;
+    }
+
+    for (i = 0; i < places.length; i++) {
+      places[i].value = place_array[rand(place_array.length)].name;
+    }
+
+    author.value = character_array[rand(character_array.length)].name;
+    switch(rand(6)) {
+      case 0:
+        title.value = 'The story of ' + names[rand(names.length)].value;
+        break;
+      case 1:
+        title.value = 'Trouble in ' + places[rand(places.length)].value;
+        break;
+      case 2:
+        title.value = 'The mystery of ' + items[rand(items.length)].value;
+        break;
+      case 3:
+        title.value = names[rand(names.length)].value + ' goes to ' +
+          places[rand(places.length)].value;
+        break;
+      case 4:
+        title.value = names[rand(names.length)].value + ' and ' +
+          items[rand(items.length)].value;
+        break;
+      case 5:
+        title.value = items[rand(items.length)].value + ' in ' + places[rand(places.length)].value;
+        break;
+    }
+
+  }
+</script>

@@ -17,3 +17,5 @@ require("bootstrap")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+
+// Add an additional field for a Character to the form
