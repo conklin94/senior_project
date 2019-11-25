@@ -1,13 +1,19 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  type: 
+  name: in
+  class_or_string: string
   order: 1
-  verb: one
+  verb: beginning
 
 two:
-  name: MyString
-  type: 
+  name: Place
+  class_or_string: class
+  order: 2
+  verb: beginning
+
+three:
+  name: Character
+  class_or_string: class
   order: 1
-  verb: two
+  verb: middle

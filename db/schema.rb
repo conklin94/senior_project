@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_19_140341) do
+ActiveRecord::Schema.define(version: 2019_11_25_173144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2019_11_19_140341) do
     t.string "part"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "weight", default: 1
   end
 
   add_foreign_key "object_or_types", "verbs"
