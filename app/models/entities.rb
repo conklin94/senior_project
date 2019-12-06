@@ -1,6 +1,6 @@
 # Source: http://rubyquiz.com/quiz96.html
 # Author: Boris Prinz
-# Edited by: Seth Conklin
+# Changed by: Seth Conklin
 class Entities
   def initialize klass
     @entities = []
@@ -21,6 +21,22 @@ class Entities
   end
 
   def pick
-    @entities[rand(@entities.size)]
+    total_weight = 0
+    @entities.each do |entity|
+      total_weight += entity.weight
+    end
+    random_weight = rand(total_weight)
+    current_weight = 0
+    index = 0
+    done = false
+    until done do
+      if current_weight + @entities[index].weight >= random_weight
+        done = true
+      else
+        current_weight += @entities[index].weight
+        index += 1
+      end
+    end
+    return @entities[index]
   end
 end

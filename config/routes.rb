@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'build' => 'stories#build_story'
 
+  post '/feedback/', to: 'stories#add_feedback'
+
   resources :stories
 
   resources :verbs

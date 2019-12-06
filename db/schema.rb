@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 2019_11_25_173144) do
     t.string "part"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "weight", default: 1
+    t.integer "weight", default: 50
   end
 
   add_foreign_key "object_or_types", "verbs"

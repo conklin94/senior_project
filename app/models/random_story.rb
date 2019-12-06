@@ -4,9 +4,12 @@
 require 'enumerator'
 
 class RandomStory
+  attr_reader :verbs
+
   def initialize (params = {})
     @sentences = []
     @bridges = params.fetch(:bridges)
+    @verbs = []
     all_actions = params[:actions].entities
 
     # Divide the story into beginning, middle, and end
@@ -29,6 +32,9 @@ class RandomStory
       new_sentence = Sentence.new(params)
       while (@sentences.include? new_sentence) do
         new_sentence = Sentence.new(params)
+      end
+      unless @verbs.include? new_sentence.verb.verb_id
+        @verbs << new_sentence.verb.verb_id
       end
       @sentences << new_sentence
     end
