@@ -58,7 +58,7 @@ function submitFeedback() {
     verb = document.getElementsByName("verb[" + i + "]");
   }
 
-  if (add.length && subtract.length) {
+  if (add.length || subtract.length) {
     postAjax('/feedback/', { add: add, subtract: subtract}, function(data) {
       var response = JSON.parse(data);
       if (response.success == "true"){
